@@ -274,8 +274,8 @@ app.get('/update', function (req,res){
 });
 
 // , '10.0.0.148'
-server.listen(port);
-console.debug('Server listening on port localhost:' + port);
+server.listen(port, "159.89.120.211");
+console.debug('Server listening on port 159.89.120.211:' + port);
 
 async function move(options, choice, socket){
     io.emit('print', options[choice].dir);
