@@ -61,6 +61,10 @@ app.get('/show', function(req, res){
     res.sendFile(path.join(__dirname+'/index.html'));
 });
 
+app.get('/hasti', function(req, res){
+    res.sendFile(path.join(__dirname+'/hasti.html'));
+});
+
 app.get('/reset', function(req, res){
     spots.spots = spots.reset()
     fs.writeFileSync('./data/board.json', JSON.stringify(spots.spots), (error) => {
