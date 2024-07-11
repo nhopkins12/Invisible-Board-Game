@@ -1,0 +1,5 @@
+[
+    {"title":"got 3 coins","function":"get3coins"},
+    {"title":"got 5 coins","function":"get5coins"},
+    {"title":"got a random item","function":"getitem"}
+]

@@ -1,0 +1,9 @@
+[
+    {"title": "Spend 50 coins", "function":"spend50"},
+    {"title": "Get the key off the goblin", "function":"goblin"},
+    {"title": "Find the secret location", "function":"location"},
+    {"title": "Buy the star from Toad", "function":"marioparty"},
+    {"title": "Buy the Magic Vase from the shop", "function":"buyitem"},
+    {"title": "Hold 20 coins", "function":"holdcoins"},
+    {"title": "Land on 10 good spaces", "function":"goodspaces"}
+]

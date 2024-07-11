@@ -1,0 +1,14 @@
+[
+    {"title": "GPS", "description": "reveal current path destinations", "price": 2, "increase": 0, "count": 1, "function": "revealpath"},
+    {"title": "", "description": "swap places with a player", "price": 10, "increase": 0, "count": 1, "function": "swap"},
+    {"title": "Magic Eraser", "description": "reveal the last objective", "price": 20, "increase": 0, "count": 1, "function": "revealobjective"},
+    {"title": "", "description": "stay in spot for next turn", "price": 2, "increase": 0, "count": 1, "function": "stay"},
+    {"title": "Trap", "description": "the next player who lands on the spot loses all coins", "price": 10, "increase": 0, "count": 1, "function": "trap"},
+    {"title": "Skip", "description": "skip next players turn", "price": 5, "increase": 0, "count": 1, "function": "skip"},
+    {"title": "Roller Blade", "description": "move 2 spaces in a turn", "price": 5, "increase": 0, "count": 1, "function": "double"},
+    {"title": "Uno Reverso", "description": "reverse the order", "price": 5, "increase": 0, "count": 1, "function": "reverse"},
+    {"title": "Extending Claw", "description": "steal a players item", "price": 10, "increase": 0, "count": 1, "function": "stealitem"},
+    {"title": "A Very Real Looking Prop Gun", "description": "steal a players coins", "price": 10, "increase": 0, "count": 1, "function": "stealcoins"},
+    {"title": "/tp", "description": "teleport to a player", "price": 10, "increase": 0, "count": 1, "function": "teleport"},
+    {"title": "Chained Kunai", "description": "teleport a player to you", "price": 10, "increase": 0, "count": 1, "function": "drag"}
+]
