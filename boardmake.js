@@ -5,7 +5,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
     function reset() {
         const board = [];
         spacing = 50
-        totalSpots = Math.round(Math.random()*10)+15
+        totalSpots = Math.round(Math.random()*10)+10
         gridSize = Math.floor(Math.sqrt(totalSpots))
 
         
