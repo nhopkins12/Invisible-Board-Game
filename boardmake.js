@@ -60,87 +60,117 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
         makePath(board[0])
 
         function makePath(spot) {
+            found = false
+            count = 0
             ran = (Math.round(Math.random()*(totalSpots-2)));
             if(ran >= spot.id-1){
                 ran++;
             }
             // console.log(board[ran])
             // console.log(totalSpots+": "+ran)
+            while(!found){
+                if(board[ran].x >= spot.x && board[ran].y >= spot.y){ // Bottom Right
+                    if(board[ran].x - spot.x > board[ran].y - spot.y){
+                        if (spot.right == undefined && board[ran].left == undefined){
+                            spot.right = board[ran].id
+                            board[ran].left = spot.id
+                            spot.connections++;
+                            board[ran].connections++;
+                            found = true
+                        }
+                    }
+                    else {
+                        if(spot.down == undefined && board[ran].up == undefined){
+                            spot.down = board[ran].id
+                            board[ran].up = spot.id
+                            spot.connections++;
+                            board[ran].connections++;
+                            found = true
+                        }
+                    }
+                }
+                else if(board[ran].x <= spot.x && board[ran].y <= spot.y){ // Top Left
+                    if(spot.x - board[ran].x > spot.y - board[ran].y){
+                        if(spot.left == undefined && board[ran].right == undefined){
+                            spot.left = board[ran].id
+                            board[ran].right = spot.id
+                            spot.connections++;
+                            board[ran].connections++;
+                            found = true
+                        }
+                    }
+                    else {
+                        if(spot.up == undefined && board[ran].down == undefined){
+                            spot.up = board[ran].id
+                            board[ran].down = spot.id
+                            spot.connections++;
+                            board[ran].connections++;
+                            found = true
+                        }
+                    }
+                }
+                else if(board[ran].x >= spot.x && board[ran].y <= spot.y){ // Top Right
+                    if(board[ran].x - spot.x > spot.y - board[ran].y){
+                        if(spot.right == undefined && board[ran].left == undefined){
+                            spot.right = board[ran].id
+                            board[ran].left = spot.id
+                            spot.connections++;
+                            board[ran].connections++;
+                            found = true
+                        }
+                    }
+                    else {
+                        if(spot.up == undefined && board[ran].down == undefined){
+                            spot.up = board[ran].id
+                            board[ran].down = spot.id
+                            spot.connections++;
+                            board[ran].connections++;
+                            found = true
+                        }
+                    }
+                }
+                else if(board[ran].x <= spot.x && board[ran].y >= spot.y){ // Bottom Left
+                    if(spot.x - board[ran].x > board[ran].y - spot.y){
+                        if(spot.left == undefined && board[ran].right == undefined){
+                            spot.left = board[ran].id
+                            board[ran].right = spot.id
+                            spot.connections++;
+                            board[ran].connections++;
+                            found = true
+                        }
+                    }
+                    else{
+                        if(spot.down == undefined && board[ran].up == undefined){
+                            spot.down = board[ran].id
+                            board[ran].up = spot.id
+                            spot.connections++;
+                            board[ran].connections++;
+                            found = true
+                        }
+                    }
+                }
+                if (!found){
+                    ran = (Math.round(Math.random()*(totalSpots-2)));
+                    if(ran >= spot.id-1){
+                        ran++;
+                    }
+                }
+                if (count >= 100){
+                    break
+                }
+                count++
+            }
+            if (board[ran].connections >= 4){
+                min = board.reduce((prev, curr) => prev.connections < curr.connections ? prev : curr);
+                // console.log(min)
+                ran = min.id-1
+                console.log(board.filter((e) => e.connections < 2).length)
+            }
 
-            if(board[ran].x >= spot.x && board[ran].y >= spot.y){ // Bottom Right
-                if(board[ran].x - spot.x > board[ran].y - spot.y){
-                    if (spot.right == undefined && board[ran].left == undefined){
-                        spot.right = board[ran].id
-                        board[ran].left = spot.id
-                        spot.connections++;
-                        board[ran].connections++;
-                    }
-                }
-                else {
-                    if(spot.down == undefined && board[ran].up == undefined){
-                        spot.down = board[ran].id
-                        board[ran].up = spot.id
-                        spot.connections++;
-                        board[ran].connections++;
-                    }
-                }
-            }
-            else if(board[ran].x <= spot.x && board[ran].y <= spot.y){ // Top Left
-                if(spot.x - board[ran].x > spot.y - board[ran].y){
-                    if(spot.left == undefined && board[ran].right == undefined){
-                        spot.left = board[ran].id
-                        board[ran].right = spot.id
-                        spot.connections++;
-                        board[ran].connections++;
-                    }
-                }
-                else {
-                    if(spot.up == undefined && board[ran].down == undefined){
-                        spot.up = board[ran].id
-                        board[ran].down = spot.id
-                        spot.connections++;
-                        board[ran].connections++;
-                    }
-                }
-            }
-            else if(board[ran].x >= spot.x && board[ran].y <= spot.y){ // Top Right
-                if(board[ran].x - spot.x > spot.y - board[ran].y){
-                    if(spot.right == undefined && board[ran].left == undefined){
-                        spot.right = board[ran].id
-                        board[ran].left = spot.id
-                        spot.connections++;
-                        board[ran].connections++;
-                    }
-                }
-                else {
-                    if(spot.up == undefined && board[ran].down == undefined){
-                        spot.up = board[ran].id
-                        board[ran].down = spot.id
-                        spot.connections++;
-                        board[ran].connections++;
-                    }
-                }
-            }
-            else if(board[ran].x <= spot.x && board[ran].y >= spot.y){ // Bottom Left
-                if(spot.x - board[ran].x > board[ran].y - spot.y){
-                    if(spot.left == undefined && board[ran].right == undefined){
-                        spot.left = board[ran].id
-                        board[ran].right = spot.id
-                        spot.connections++;
-                        board[ran].connections++;
-                    }
-                }
-                else{
-                    if(spot.down == undefined && board[ran].up == undefined){
-                        spot.down = board[ran].id
-                        board[ran].up = spot.id
-                        spot.connections++;
-                        board[ran].connections++;
-                    }
-                }
-            }
+            const sum = board.reduce((a, b) => a + b.connections, 0);
+            const avg = (sum / board.length) || 0;
 
-            if(board.every(connectionNum)){
+            if(avg > 2){
                 return
             }
             else{
