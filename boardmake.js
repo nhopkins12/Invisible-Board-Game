@@ -409,7 +409,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
     }
 
     function connectionNum(spot) {
-        return spot.connections >= 2
+        return spot.connections >= 3
     }
 
     return board;
