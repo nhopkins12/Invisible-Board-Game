@@ -57,7 +57,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
         });
 
         // console.log(totalSpots)
-        makePath(board[0], 0)
+        makePath(board[(Math.round(Math.random()*(totalSpots-1)))], 0)
 
         function makePath(spot, count) {
             ran = (Math.round(Math.random()*(totalSpots-2)));
@@ -144,7 +144,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
                 return
             }
             else{
-                return(makePath(board[ran], count+1))
+                return(makePath(board[(Math.round(Math.random()*(totalSpots-1)))], count+1))
             }
         }
 
