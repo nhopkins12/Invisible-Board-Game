@@ -57,9 +57,9 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
         });
 
         // console.log(totalSpots)
-        makePath(board[0])
+        makePath(board[0], 0)
 
-        function makePath(spot) {
+        function makePath(spot, count) {
             ran = (Math.round(Math.random()*(totalSpots-2)));
             if(ran >= spot.id-1){
                 ran++;
@@ -139,12 +139,12 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
                     }
                 }
             }
-
-            if(board.every(connectionNum)){
+            // board.every(connectionNum) || 
+            if(count >= totalSpots-1){
                 return
             }
             else{
-                return(makePath(board[ran]))
+                return(makePath(board[ran], count+1))
             }
         }
 
