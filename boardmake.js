@@ -144,7 +144,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
                 return
             }
             else{
-                return(makePath(board[(Math.round(Math.random()*(totalSpots-1)))], count+1))
+                return(makePath(board[ran], count+1))
             }
         }
 
@@ -409,7 +409,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
     }
 
     function connectionNum(spot) {
-        return spot.connections >= 3
+        return spot.connections >= 2
     }
 
     return board;
