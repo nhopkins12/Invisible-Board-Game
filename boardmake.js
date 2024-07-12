@@ -170,7 +170,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
             const sum = board.reduce((a, b) => a + b.connections, 0);
             const avg = (sum / board.length) || 0;
 
-            if(avg > 2){
+            if(avg > 2 && board.reduce((prev, curr) => prev.connections < curr.connections ? prev : curr).connections >= 1){
                 return
             }
             else{
