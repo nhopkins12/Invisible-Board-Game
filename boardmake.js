@@ -170,7 +170,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
             const sum = board.reduce((a, b) => a + b.connections, 0);
             const avg = (sum / board.length) || 0;
 
-            if(avg > 2 && board.reduce((prev, curr) => prev.connections < curr.connections ? prev : curr).connections >= 1){
+            if(avg > 2 && canVisitAllNodes(board, 0, board.length)){
                 return
             }
             else{
@@ -436,6 +436,38 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
             spot.x = Math.round(spot.x);
             spot.y = Math.round(spot.y);
         });
+    }
+
+    // Function to find if
+    // all nodes can be visited from X
+    function canVisitAllNodes(arr, X, n) {
+        let q = [];
+        let visited = new Array(n).fill(false);
+        q.push(X);
+        visited[X] = true;
+        let count = 0;
+
+        // Loop to implement BFS
+        while (q.length > 0) {
+            let size = q.length;
+            for (let i = 0; i < size; i++) {
+                let curr = q.shift();
+                count++;
+                directions = [arr[curr].up-1, arr[curr].right-1, arr[curr].down-1, arr[curr].left-1]
+                directions = directions.filter((e) => e != NaN)
+                for (let j of directions) {
+                    if (visited[j] == false) {
+                        q.push(j);
+                        visited[j] = true;
+                    }
+                }
+            }
+        }
+
+        // Check if all nodes are visited
+        if (count == n) 
+            return true; 
+        return false;
     }
 
     function connectionNum(spot) {
