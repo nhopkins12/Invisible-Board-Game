@@ -85,7 +85,7 @@ app.get('/display', function (req, res){
     res.json({"board": JSON.parse(fs.readFileSync('./data/board.json')), "players": JSON.parse(fs.readFileSync('./data/players.json')), "npc": JSON.parse(fs.readFileSync('./data/npc.json'))});
 });
 
-const port = 3000;
+const port = 8080;
 
 // '10.0.0.148'
 // app.listen(port, function (err) {
