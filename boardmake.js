@@ -140,7 +140,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
                 }
             }
             // board.every(connectionNum) || 
-            if(count >= (totalSpots*3)-1){
+            if(count >= (totalSpots*4)-1){
                 return
             }
             else{
