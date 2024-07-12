@@ -172,7 +172,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
 
             three = board.filter((e) => e.connections < 3).length
 
-            if(avg > 2 && canVisitAllNodes(board, 0, board.length) && three >= Math.sqrt(board.length)){
+            if(avg > 2.5 && canVisitAllNodes(board, 0, board.length) && three >= Math.floor(Math.sqrt(board.length))){
                 return
             }
             else{
