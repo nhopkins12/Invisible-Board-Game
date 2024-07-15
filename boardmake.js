@@ -5,8 +5,9 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
     function reset() {
         const board = [];
         spacing = 50
-        totalSpots = Math.round(Math.random()*10)+10
+        totalSpots = Math.floor(Math.random()*8)+13
         gridSize = Math.floor(Math.sqrt(totalSpots))
+        averageConst = (Math.random()*0.5)+2.1
 
         
         for (let i = 0; i < totalSpots; i++) {
@@ -37,7 +38,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
                         if (board.filter((obj) => obj.type === 'Teleport').length < 1) {
                             connection = undefined
                             limit = 0
-                            while(connection==undefined || !(board[connection].constructor.name === 'Spot' && limit <= 100)){
+                            while((connection==undefined || board[connection].constructor.name === 'Spot') && limit <= 100){
                                 connection = Math.round(Math.random()*(totalSpots-2))
                                 limit++;
                             }
@@ -57,9 +58,8 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
         });
 
         // console.log(totalSpots)
-        makePath(board[0])
 
-        function makePath(spot) {
+        function makePath(spot, countfull = 0) {
             found = false
             count = 0
             ran = (Math.round(Math.random()*(totalSpots-2)));
@@ -159,24 +159,26 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
                     break
                 }
                 count++
+                countfull++
             }
             if (board[ran].connections >= 4){
                 min = board.reduce((prev, curr) => prev.connections < curr.connections ? prev : curr);
                 // console.log(min)
                 ran = min.id-1
-                console.log(board.filter((e) => e.connections < 2).length)
+                // console.log(board.filter((e) => e.connections < 2).length)
             }
 
             const sum = board.reduce((a, b) => a + b.connections, 0);
             const avg = (sum / board.length) || 0;
 
             three = board.filter((e) => e.connections >= 3).length
-
-            if(avg > 2 && canVisitAllNodes(board, 0, board.length) && three >= Math.floor(Math.sqrt(board.length))){
+            four = board.filter((e) => e.connections >= 4).length
+            // console.log(avg)
+            if(avg > averageConst && canVisitAllNodes(board, 0, board.length) && three >= Math.floor(Math.sqrt(board.length))+1 && four >= 1){
                 return
             }
             else{
-                return(makePath(board[ran]))
+                return(makePath(board[ran], countfull))
             }
         }
 
@@ -193,8 +195,39 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
             }
         });
 
+        // while (!canVisitAllNodes(board, 0, board.length)){
+        //     board.forEach(spot => {
+        //         spot.up = undefined;
+        //         spot.right = undefined;
+        //         spot.down = undefined;
+        //         spot.left = undefined;
+        //     });
+
+
+        //     makePath(board[Math.floor(Math.random()*board.length)])
+        // }
+        success = false
+        while (!success){
+            try {
+                makePath(board[Math.floor(Math.random()*board.length)])
+                success = true
+            }
+            catch(error){
+                console.error(error)
+                board.forEach(spot => {
+                            spot.up = undefined;
+                            spot.right = undefined;
+                            spot.down = undefined;
+                            spot.left = undefined;
+                            spot.connections = 0; 
+                        });
+                success = false
+            }
+        }
         // Apply Fruchterman-Reingold algorithm
         fruchtermanReingoldLayout(board, 550, 550);
+
+        // makePath(board[Math.floor(Math.random()*board.length)])
 
         adjustRelativeDirections(board);
 
@@ -211,6 +244,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
         //     spot.right = undefined
         //     spot.down = undefined
         //     spot.left = undefined
+        //     spot.connections = 0
         // });
         // assignDirections(board)
         

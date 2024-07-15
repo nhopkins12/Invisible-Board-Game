@@ -12,7 +12,7 @@ const objectivefunctions = require('./actionfunctions/objectives');
 const itemfunctions = require('./actionfunctions/items');
 const npcactions = require('./actionfunctions/npc');
 
-const objectives = [{"title": "Buy the Magic Vase from the shop", "function":"buyitem"}]
+const objectives = []
 const allobjectives = JSON.parse(fs.readFileSync('./data/objectives.json'))
 for (let index = 0; objectives.length < 3; index++) {
     var rand = Math.floor(Math.random()*allobjectives.length);
@@ -66,6 +66,16 @@ app.get('/hasti', function(req, res){
 });
 
 app.get('/reset', function(req, res){
+    const objectives = []
+    const allobjectives = JSON.parse(fs.readFileSync('./data/objectives.json'))
+    for (let index = 0; objectives.length < 3; index++) {
+        var rand = Math.floor(Math.random()*allobjectives.length);
+        objectives.push(allobjectives[rand]);
+        allobjectives.splice(rand, 1);
+    }
+    objectives.forEach(obj => {
+        eval("objectivefunctions."+ obj.function + "setup()")
+    });
     spots.spots = spots.reset()
     fs.writeFileSync('./data/board.json', JSON.stringify(spots.spots), (error) => {
         if (error) {
@@ -78,6 +88,17 @@ app.get('/reset', function(req, res){
             console.error(error);
             throw error;
     }});
+    fs.writeFileSync('./data/npc.json', JSON.stringify([]), (error) => {
+        if (error) {
+            console.error(error);
+            throw error;
+        }});
+    
+    fs.writeFileSync('./data/liveobjectives.json', JSON.stringify(objectives), (error) => {
+        if (error) {
+            console.error(error);
+            throw error;
+        }});
     res.sendStatus(200)
 });
 
@@ -85,7 +106,7 @@ app.get('/display', function (req, res){
     res.json({"board": JSON.parse(fs.readFileSync('./data/board.json')), "players": JSON.parse(fs.readFileSync('./data/players.json')), "npc": JSON.parse(fs.readFileSync('./data/npc.json'))});
 });
 
-const port = 8080;
+const port = 3000;
 
 // '10.0.0.148'
 // app.listen(port, function (err) {
@@ -278,7 +299,7 @@ app.get('/update', function (req,res){
 });
 
 // , '10.0.0.148'
-server.listen(port, "159.89.120.211");
+server.listen(port);
 console.debug('Server listening on port 159.89.120.211:' + port);
 
 async function move(options, choice, socket){

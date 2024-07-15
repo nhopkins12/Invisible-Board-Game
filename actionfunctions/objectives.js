@@ -42,12 +42,12 @@ function location(player){
 }
 
 function locationsetup(){
-    rand = Math.floor(Math.random()*board.length)
-    while (io.spots[rand].connections >= 3){
-        rand = Math.floor(Math.random()*board.length)
-    }
+    // rand = Math.floor(Math.random()*board.length)
+    board = [...io.spots]
+    shuffle(board)
+    rand = board.reduce((prev, curr) => prev.connections < curr.connections ? prev : curr);
     dirnum = Math.floor(Math.random()*4)
-    directions = [board[io.spots[rand].up-1], board[io.spots[rand].right-1], board[io.spots[rand].down-1], board[io.spots[rand].left-1]]
+    directions = [board[rand.up-1], board[rand.right-1], board[rand.down-1], board[rand.left-1]]
     while(directions[dirnum] != undefined){
         dirnum = (dirnum + 1) % 4
     }
@@ -59,9 +59,9 @@ function locationsetup(){
     const distance = (x1, y1, x2, y2) => Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 
     // Get the coordinates of the node to connect to
-    const cx = io.spots[rand].x;
-    const cy =io.spots[rand].y;
-    connectedNode = io.spots[rand];
+    const cx = rand.x;
+    const cy =rand.y;
+    connectedNode = rand;
 
     let bestLocation = null;
     let maxMinDist = -Infinity;
@@ -99,23 +99,23 @@ function locationsetup(){
     io.spots.push(newNode)
     switch (dirnum) {
         case 0: //up
-            io.spots[rand].up = newNode.id
-            newNode.down = io.spots[rand].id
+            rand.up = newNode.id
+            newNode.down = rand.id
             break;
 
         case 1: //right
-            io.spots[rand].right = newNode.id
-            newNode.left = io.spots[rand].id
+            rand.right = newNode.id
+            newNode.left = rand.id
             break;
 
         case 2: //down
-            io.spots[rand].down = newNode.id
-            newNode.up = io.spots[rand].id
+            rand.down = newNode.id
+            newNode.up = rand.id
             break;
 
         case 3: //left
-            io.spots[rand].left = newNode.id
-            newNode.right = io.spots[rand].id
+            rand.left = newNode.id
+            newNode.right = rand.id
             break;
     
         default:
@@ -127,6 +127,22 @@ function locationsetup(){
             console.error(error);
             throw error;
         }});
+
+    function shuffle(array) {
+        let currentIndex = array.length;
+    
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+    
+        // Pick a remaining element...
+        let randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+    
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+    }
 }
 
 function marioparty(player){
