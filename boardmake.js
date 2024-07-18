@@ -22,7 +22,7 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
 
         board.forEach(spot => {
             if (spot.constructor.name === 'Spot'){
-                switch (Math.round(Math.random()*5)) {
+                switch (Math.floor(Math.random()*5)) {
                     case 1:
                         board[spot.id-1] = new Bad(spot.id, spot.x, spot.y);
                         break;
@@ -269,9 +269,9 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             spot.dir = []
         });
 
-        start = board.filter((e) => e.connections >= 4 && (e.type == "Bad" || e.type == "Good"))
+        start = board.filter((e) => e.connections >= 4 && (e.type == "Bad" || e.type == "Good" || e.type == undefined))
         if (start.length == 0){
-            start = board.filter((e) => e.connections >= 3 && (e.type == "Bad" || e.type == "Good"))
+            start = board.filter((e) => e.connections >= 3 && (e.type == "Bad" || e.type == "Good" || e.type == undefined))
         }
         board[start[0].id-1] = new Start(start[0].id, start[0].x, start[0].y);
 
