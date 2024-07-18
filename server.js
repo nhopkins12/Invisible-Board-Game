@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 var spots = require("./boardmake");
-var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
+var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
 const objectivefunctions = require('./actionfunctions/objectives');
 const itemfunctions = require('./actionfunctions/items');
 const npcactions = require('./actionfunctions/npc');

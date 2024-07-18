@@ -21,6 +21,10 @@ class Spot {
         this.connections = 0
         this.dir = []
     }
+
+    action(player, index, socket){
+        io.advance()
+    }
 }
 
 class Good extends Spot{

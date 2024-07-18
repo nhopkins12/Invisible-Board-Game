@@ -7,7 +7,7 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
         spacing = 50
         totalSpots = Math.floor(Math.random()*8)+13
         gridSize = Math.floor(Math.sqrt(totalSpots))
-        averageConst = (Math.random()*0.5)+2.1
+        averageConst = (Math.floor(Math.random()*5)/10)+2.1
 
         
         for (let i = 0; i < totalSpots; i++) {
@@ -18,8 +18,8 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             board.push(new Spot(i + 1, x, y));
         }
 
-
-
+        
+        do {
         board.forEach(spot => {
             if (spot.constructor.name === 'Spot'){
                 switch (Math.floor(Math.random()*5)) {
@@ -59,6 +59,8 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
                 }
             } 
         });
+        }
+        while(board.filter())
 
         // console.log(totalSpots)
 
@@ -273,7 +275,13 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
         if (start.length == 0){
             start = board.filter((e) => e.connections >= 3 && (e.type == "Bad" || e.type == "Good" || e.type == undefined))
         }
-        board[start[0].id-1] = new Start(start[0].id, start[0].x, start[0].y);
+        hold = new Start(start[0].id, start[0].x, start[0].y);
+        hold.up = start[0].up
+        hold.right = start[0].right
+        hold.down = start[0].down
+        hold.left = start[0].left
+        hold.connections = start[0].connections
+        board[start[0].id-1] = hold
 
     function fruchtermanReingoldLayout(spots, width, height, iterations = 100, area = 90000) {
         const k = Math.sqrt(area / spots.length);
