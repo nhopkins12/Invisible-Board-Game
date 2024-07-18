@@ -270,7 +270,7 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
         });
 
         start = board.filter((e) => e.connections >= 4 && e.type == "Bad" || e.type == "Good")
-        if (four[0].length == 0){
+        if (four.length == 0){
             start = board.filter((e) => e.connections >= 3 && e.type == "Bad" || e.type == "Good")
         }
         board[start[0].id-1] = new Start(spot.id, spot.x, spot.y);
