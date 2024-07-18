@@ -99,7 +99,7 @@ app.get('/reset', function(req, res){
             console.error(error);
             throw error;
         }});
-    res.redirect('/show')
+    res.redirect('../show')
 });
 
 app.get('/display', function (req, res){
