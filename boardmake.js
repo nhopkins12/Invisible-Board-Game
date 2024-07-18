@@ -273,7 +273,7 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
         if (four.length == 0){
             start = board.filter((e) => e.connections >= 3 && e.type == "Bad" || e.type == "Good")
         }
-        board[start[0].id-1] = new Start(spot.id, spot.x, spot.y);
+        board[start[0].id-1] = new Start(start[0].id, start[0].x, start[0].y);
 
     function fruchtermanReingoldLayout(spots, width, height, iterations = 100, area = 90000) {
         const k = Math.sqrt(area / spots.length);
