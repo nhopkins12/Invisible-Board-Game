@@ -18,49 +18,56 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             board.push(new Spot(i + 1, x, y));
         }
 
-        
         do {
-        board.forEach(spot => {
-            if (spot.constructor.name === 'Spot'){
-                switch (Math.floor(Math.random()*5)) {
-                    case 1:
-                        board[spot.id-1] = new Bad(spot.id, spot.x, spot.y);
-                        break;
+            board.forEach(spot => {
+                board[spot.id-1] = new Spot(spot.id, spot.x, spot.y)
+            });
 
-                    case 2:
-                        if (board.filter((obj) => obj.type === 'Shop').length < 3) {
-                            board[spot.id-1] = new Shop(spot.id, spot.x, spot.y);
+            board.forEach(spot => {
+                if (spot.constructor.name === 'Spot'){
+                    switch (Math.floor(Math.random()*5)) {
+                        case 1:
+                            board[spot.id-1] = new Bad(spot.id, spot.x, spot.y);
                             break;
-                        }
 
-                
-                    case 3:
-                        if (board.filter((obj) => obj.type === 'Teleport').length < 1) {
-                            connection = undefined
-                            limit = 0
-                            while((connection==undefined || board[connection].constructor.name === 'Spot') && limit <= 100){
-                                connection = Math.round(Math.random()*(totalSpots-2))
-                                limit++;
-                            }
-                            if (limit <= 100){
-                                spot2 = board[connection]
-                                board[spot.id-1] = new Teleport(spot.id, spot.x, spot.y, spot2.id);
-                                board[spot2.id-1] = new Teleport(spot2.id, spot2.x, spot2.y, spot.id);
+                        case 2:
+                            if (board.filter((obj) => obj.type === 'Shop').length < 3) {
+                                board[spot.id-1] = new Shop(spot.id, spot.x, spot.y);
                                 break;
                             }
-                        }
 
-                    case 0:
-                        board[spot.id-1] = new Good(spot.id, spot.x, spot.y);
-                        break;
+                    
+                        case 3:
+                            if (board.filter((obj) => obj.type === 'Teleport').length < 1) {
+                                connection = undefined
+                                limit = 0
+                                while((connection==undefined || board[connection].constructor.name === 'Spot') && limit <= 100){
+                                    connection = Math.round(Math.random()*(totalSpots-2))
+                                    limit++;
+                                }
+                                if (limit <= 100){
+                                    spot2 = board[connection]
+                                    board[spot.id-1] = new Teleport(spot.id, spot.x, spot.y, spot2.id);
+                                    board[spot2.id-1] = new Teleport(spot2.id, spot2.x, spot2.y, spot.id);
+                                    break;
+                                }
+                            }
 
-                    default:
-                        break;
-                }
-            } 
-        });
+                        case 0:
+                            board[spot.id-1] = new Good(spot.id, spot.x, spot.y);
+                            break;
+
+                        default:
+                            break;
+                    }
+                } 
+            });
         }
-        while(board.filter())
+        while(
+            board.filter((e) => e.type == "Bad").length == 0 ||
+            board.filter((e) => e.type == "Good").length == 0 ||
+            board.filter((e) => e.type == "Shop").length == 0
+            )
 
         // console.log(totalSpots)
 
