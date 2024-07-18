@@ -3,7 +3,7 @@ const prompt = require('prompt-sync')();
 const io = require("socket.io-client");
 
 // const socket = io("http://159.89.120.211:3000");
-const socket = io("http://localhost:3000", {
+const socket = io("http://159.89.120.211:3000", {
     pingTimeout: 2000 // 60 seconds
 });
 

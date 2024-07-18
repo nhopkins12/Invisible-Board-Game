@@ -22,7 +22,7 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
 
         board.forEach(spot => {
             if (spot.constructor.name === 'Spot'){
-                switch (Math.round(Math.random()*4)) {
+                switch (Math.round(Math.random()*5)) {
                     case 1:
                         board[spot.id-1] = new Bad(spot.id, spot.x, spot.y);
                         break;
@@ -50,8 +50,11 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
                             }
                         }
 
-                    default:
+                    case 0:
                         board[spot.id-1] = new Good(spot.id, spot.x, spot.y);
+                        break;
+
+                    default:
                         break;
                 }
             } 
@@ -224,6 +227,9 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
                 success = false
             }
         }
+
+        
+
         // Apply Fruchterman-Reingold algorithm
         fruchtermanReingoldLayout(board, 550, 550);
 
@@ -251,7 +257,6 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
 
         // adjustPositions(board, 550, 550)
 
-        console.log('second')
         board.forEach(spot => {
             directions = [board[spot.up-1], board[spot.right-1], board[spot.down-1], board[spot.left-1]]
             
@@ -263,6 +268,8 @@ var {Spot, Good, Bad, Shop, Teleport, Player} = require("./objects")
             }
             spot.dir = []
         });
+
+        four = board.filter((e) => e.connections >= 4 && e.type == "Bad" || e.type == "Good")
 
     function fruchtermanReingoldLayout(spots, width, height, iterations = 100, area = 90000) {
         const k = Math.sqrt(area / spots.length);
