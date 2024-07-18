@@ -248,20 +248,20 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
 
         // center(board)
 
-        // board.forEach(spot => {
-        //     directions = [board[spot.up-1], board[spot.right-1], board[spot.down-1], board[spot.left-1]]
-        //     directions.forEach(element => {
-        //         if (element != undefined){
-        //             spot.dir.push(element)
-        //         }
-        //     });
-        //     spot.up = undefined
-        //     spot.right = undefined
-        //     spot.down = undefined
-        //     spot.left = undefined
-        //     spot.connections = 0
-        // });
-        // assignDirections(board)
+        board.forEach(spot => {
+            directions = [board[spot.up-1], board[spot.right-1], board[spot.down-1], board[spot.left-1]]
+            directions.forEach(element => {
+                if (element != undefined){
+                    spot.dir.push(element)
+                }
+            });
+            spot.up = undefined
+            spot.right = undefined
+            spot.down = undefined
+            spot.left = undefined
+            spot.connections = 0
+        });
+        assignDirections(board)
         
 
         // adjustPositions(board, 550, 550)
