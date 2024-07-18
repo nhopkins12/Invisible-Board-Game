@@ -10,7 +10,7 @@
     position: absolute;
     width: 30px; /* Adjust size as needed */
     height: 30px;
-    background-color: #899196;
+    background-color: #bec7cd;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -29,7 +29,7 @@
 }
 
 .spot.Shop{
-    background-color: #feef15;
+    background-color: #35e92f;
 }
 
 .spot.Teleport{
@@ -37,7 +37,11 @@
 }
 
 .spot.Special{
-    background-color: #35e92f;
+    background-color: #feef15;
+}
+
+.spot.Start{
+    background-color: #ffffff;
 }
 
 .character {
