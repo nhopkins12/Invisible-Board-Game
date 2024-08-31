@@ -98,6 +98,7 @@ socket.on('playerchoice', async (options, response, index) => {
 });
 
 socket.on('photo', () => {
+    console.log('photo hit')
     
     var options = {
         width: 1280,

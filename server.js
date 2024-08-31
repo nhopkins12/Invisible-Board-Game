@@ -59,9 +59,14 @@ objectives.forEach(obj => {
 });
 
 app.get('/picture', function(req, res){
-    io.emit('photo')
     res.sendStatus(200)
 });
+
+// app.get('/picture', function(req, res){
+//     io.emit('photo')
+//     res.sendFile(path.join(__dirname+'/picture.jpeg'));
+//     res.sendStatus(200)
+// });
 
 app.get('/show', function(req, res){
     res.sendFile(path.join(__dirname+'/index.html'));
