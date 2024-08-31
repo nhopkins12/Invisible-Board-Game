@@ -97,45 +97,45 @@ socket.on('playerchoice', async (options, response, index) => {
     socket.emit(response, selection, index);
 });
 
-socket.on('photo', () => {
-    console.log('photo hit')
-    
-    var options = {
-        width: 1280,
-        height: 720, 
-        quality: 100,
-        delay: 1,
-        saveShots: true,
-        output: "jpeg",
-        device: false,
-        callbackReturn: "location"
-    };
+socket.on('photo', (player) => {
+    if (player.name == name && player.icon == img){
+        var options = {
+            width: 1280,
+            height: 720, 
+            quality: 100,
+            delay: 0,
+            saveShots: true,
+            output: "jpeg",
+            device: false,
+            callbackReturn: "location"
+        };
 
-    // create instance using the above options
-    var webcam = nodeWebCam.create(options);
+        // create instance using the above options
+        var webcam = nodeWebCam.create(options);
 
-    var path = `./images`;
+        var path = `./images`;
 
-    // create folder if and only if it does not exist
-    if(!fs.existsSync(path)) {
-        fs.mkdirSync(path);
-    } 
+        // create folder if and only if it does not exist
+        if(!fs.existsSync(path)) {
+            fs.mkdirSync(path);
+        } 
 
-    // capture the image
-    webcam.capture(`./images/photo.${options.output}`, (err, data) => {
-    });
+        // capture the image
+        webcam.capture(`./images/photo.${options.output}`, (err, data) => {
+            const stream = ss.createStream();
+            // const fileName = path.basename('./images/out.jpeg');
 
-    // const filePath = path.join(__dirname, );
+            // Emit the stream to the server with the file name
+            ss(socket).emit('file-upload', stream, { fileName: 'photo.jpeg' });
 
-    // Create a read stream for the file
-    const stream = ss.createStream();
-    // const fileName = path.basename('./images/out.jpeg');
+            // Pipe the file's read stream to the stream
+            fs.createReadStream('./images/photo.jpeg').pipe(stream);
+        });
 
-    // Emit the stream to the server with the file name
-    ss(socket).emit('file-upload', stream, { fileName: 'photo.jpeg' });
+        // const filePath = path.join(__dirname, );
 
-    // Pipe the file's read stream to the stream
-    fs.createReadStream('./images/photo.jpeg').pipe(stream);
+        // Create a read stream for the file
+    }
 });
 
 async function getNumberResponse(options) {

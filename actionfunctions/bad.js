@@ -188,8 +188,7 @@ function clearitem(index){
 
 function photo(index){
     players = JSON.parse(fs.readFileSync('./data/players.json'))
-    players.
-    io.io.emit('photo')
+    io.io.emit('photo', (players[index]))
 }
 
 module.exports = {

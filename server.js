@@ -109,8 +109,7 @@ app.get('/display', function (req, res){
 
 app.get('/photo', function(req, res){
     io.emit('photo')
-    res.sendFile(path.join(__dirname+'/picture.jpeg'));
-    res.sendStatus(200)
+    res.redirect('../photo.jpeg');
 });
 
 const port = 3000;
