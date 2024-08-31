@@ -40,8 +40,21 @@ function getitem(index) {
     }});
 }
 
+function double(index){
+    players = JSON.parse(fs.readFileSync('./data/players.json'))
+
+    players[index].repeat = true
+    
+    fs.writeFileSync('./data/players.json', JSON.stringify(players), (error) => {
+        if (error) {
+            console.error(error);
+            throw error;
+    }});
+}
+
 module.exports = {
     get3coins,
     get5coins,
-    getitem
+    getitem,
+    double
 }

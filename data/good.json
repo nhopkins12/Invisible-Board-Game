@@ -1,6 +1,7 @@
 [
     {"title":"got 3 coins","function":"get3coins"},
     {"title":"got 5 coins","function":"get5coins"},
+    {"title":"gets to go again","function":"double"},
     
     {"title":"got a random item","function":"getitem"}
 ]

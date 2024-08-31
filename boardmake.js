@@ -25,10 +25,14 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
 
             board.forEach(spot => {
                 if (spot.constructor.name === 'Spot'){
-                    switch (Math.floor(Math.random()*5)) {
+                    ran = Math.floor(Math.random()*5)
+                    switch (ran) {
                         case 1:
-                            board[spot.id-1] = new Bad(spot.id, spot.x, spot.y);
-                            break;
+                            if (board.filter((obj) => obj.type === 'Good').length < board.filter((obj) => obj.type === undefined).length || board.filter((obj) => obj.type === 'Bad').length < board.filter((obj) => obj.type === undefined).length){
+                                ran = 0
+                            } else {
+                                break;
+                            }
 
                         case 2:
                             if (board.filter((obj) => obj.type === 'Shop').length < 3) {
@@ -54,10 +58,16 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
                             }
 
                         case 0:
-                            board[spot.id-1] = new Good(spot.id, spot.x, spot.y);
-                            break;
+                            if (board.filter((obj) => obj.type === 'Bad').length > board.filter((obj) => obj.type === 'Good').length){    
+                                board[spot.id-1] = new Good(spot.id, spot.x, spot.y);
+                                break;
+                            }
+                            else {
+                                ran = 4
+                            }
 
                         default:
+                            board[spot.id-1] = new Bad(spot.id, spot.x, spot.y);
                             break;
                     }
                 } 
@@ -201,10 +211,6 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             
             hold = directions.filter((conn) => conn != undefined);
             // console.log(directions)
-            if (hold.length != spot.connections){
-                console.log(hold.length +' - '+ spot.connections)
-                // console.log(spot)
-            }
         });
 
         // while (!canVisitAllNodes(board, 0, board.length)){
@@ -284,10 +290,6 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             
             hold = directions.filter((conn) => conn != undefined);
             // console.log(directions)
-            if (hold.length != spot.connections){
-                console.log(hold.length +' - '+ spot.connections)
-                // console.log(spot)
-            }
             spot.dir = []
         });
 
@@ -391,52 +393,140 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
     }
 
     function assignDirections(spots) {
+        // Initialize each node's directional properties
         spots.forEach(node => {
-            let bestFits = {
-                left: { node: null, distance: Infinity },
-                right: { node: null, distance: Infinity },
-                up: { node: null, distance: Infinity },
-                down: { node: null, distance: Infinity }
-            };
+            node.left = null;
+            node.right = null;
+            node.up = null;
+            node.down = null;
+        });
     
+        // Helper function to calculate direction based on location
+        function calculateDirection(node1, node2) {
+            const dx = node2.x - node1.x;
+            const dy = node2.y - node1.y;
+            const absDx = Math.abs(dx);
+            const absDy = Math.abs(dy);
+    
+            if (absDx > absDy) {
+                return dx > 0 ? 'right' : 'left';
+            } else {
+                return dy > 0 ? 'down' : 'up';
+            }
+        }
+    
+        // Store potential connections with their directions and angles
+        let potentialConnections = [];
+    
+        spots.forEach(node => {
             node.dir.forEach(edge => {
-                const dx = edge.x - node.x;
-                const dy = edge.y - node.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                const direction = calculateDirection(node, edge);
+                const angle = Math.atan2(edge.y - node.y, edge.x - node.x);
+                potentialConnections.push({ from: node.id, to: edge.id, direction, angle });
+            });
+        });
     
-                if (Math.abs(dx) > Math.abs(dy)) {
-                    if (dx > 0 && distance < bestFits.right.distance) {
-                        bestFits.right = { node: edge, distance: distance };
-                    } else if (dx < 0 && distance < bestFits.left.distance) {
-                        bestFits.left = { node: edge, distance: distance };
+        // Sort connections by angle to determine priority
+        potentialConnections.sort((a, b) => a.angle - b.angle);
+    
+        // Helper function to assign a direction
+        function assignDirection(from, to, direction) {
+            const oppositeDirection = {
+                left: 'right',
+                right: 'left',
+                up: 'down',
+                down: 'up'
+            }[direction];
+            
+            const fromNode = spots.find(node => node.id === from);
+            const toNode = spots.find(node => node.id === to);
+    
+            // Assign direction if not already assigned
+            if (fromNode[direction] === null) {
+                fromNode[direction] = to;
+            }
+            if (toNode[oppositeDirection] === null) {
+                toNode[oppositeDirection] = from;
+            }
+        }
+    
+        // Assign directions based on the most ideal connections
+        spots.forEach(node => {
+            node.dir.forEach(edge => {
+                const direction = calculateDirection(node, edge);
+                assignDirection(node.id, edge.id, direction);
+            });
+        });
+    
+        // Function to ensure each node's dir array connections are correctly assigned
+        function ensureConnections() {
+            let hasChanges = false;
+    
+            spots.forEach(node => {
+                node.dir.forEach(edge => {
+                    const direction = calculateDirection(node, edge);
+                    const oppositeDirection = {
+                        left: 'right',
+                        right: 'left',
+                        up: 'down',
+                        down: 'up'
+                    }[direction];
+                    
+                    const edgeNode = spots.find(n => n.id === edge.id);
+                    
+                    // Ensure mutual bidirectional assignment
+                    if (node[direction] === null) {
+                        node[direction] = edge.id;
+                        hasChanges = true;
                     }
-                } else {
-                    if (dy > 0 && distance < bestFits.down.distance) {
-                        bestFits.down = { node: edge, distance: distance };
-                    } else if (dy < 0 && distance < bestFits.up.distance) {
-                        bestFits.up = { node: edge, distance: distance };
+                    if (edgeNode[oppositeDirection] === null) {
+                        edgeNode[oppositeDirection] = node.id;
+                        hasChanges = true;
                     }
-                }
+                });
             });
     
-            if (bestFits.left.node) {
-                node.left = bestFits.left.node.id;
-                bestFits.left.node.right = node.id;
-            }
-            if (bestFits.right.node) {
-                node.right = bestFits.right.node.id;
-                bestFits.right.node.left = node.id;
-            }
-            if (bestFits.up.node) {
-                node.up = bestFits.up.node.id;
-                bestFits.up.node.down = node.id;
-            }
-            if (bestFits.down.node) {
-                node.down = bestFits.down.node.id;
-                bestFits.down.node.up = node.id;
-            }
+            return hasChanges;
+        }
+    
+        // Ensure all nodes are connected as per the dir array requirements
+        const maxIterations = 10;
+        let iterations = 0;
+        let hasChanges;
+        do {
+            hasChanges = ensureConnections();
+            iterations++;
+        } while (hasChanges && iterations < maxIterations);
+    
+        // Final verification: Ensure no node is missing necessary connections
+        spots.forEach(node => {
+            node.dir.forEach(edge => {
+                const direction = calculateDirection(node, edge);
+                const oppositeDirection = {
+                    left: 'right',
+                    right: 'left',
+                    up: 'down',
+                    down: 'up'
+                }[direction];
+                
+                if (node[direction] !== edge.id) {
+                    console.error(`Error: Node ${node.id} should have a ${direction} connection to ${edge.id}.`);
+                }
+                const edgeNode = spots.find(n => n.id === edge.id);
+                if (edgeNode[oppositeDirection] !== node.id) {
+                    console.error(`Error: Node ${edge.id} should have a ${oppositeDirection} connection to ${node.id}.`);
+                }
+            });
         });
     }
+    
+    
+    
+    
+    
+    
+    
+    
 
     function adjustPositions(spots, width, height, padding = 10, maxIterations = 100, moveStep = 1) {
         

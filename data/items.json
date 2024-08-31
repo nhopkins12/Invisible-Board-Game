@@ -10,5 +10,6 @@
     {"title": "Extending Claw", "description": "steal a players item", "price": 10, "increase": 0, "count": 1, "function": "stealitem"},
     {"title": "A Very Real Looking Prop Gun", "description": "steal a players coins", "price": 10, "increase": 0, "count": 1, "function": "stealcoins"},
     {"title": "/tp", "description": "teleport to a player", "price": 10, "increase": 0, "count": 1, "function": "teleport"},
-    {"title": "Chained Kunai", "description": "teleport a player to you", "price": 10, "increase": 0, "count": 1, "function": "drag"}
+    {"title": "Chained Kunai", "description": "teleport a player to you", "price": 10, "increase": 0, "count": 1, "function": "drag"},
+    {"title": "Moat", "description": "get rid of all but one path to your current spot", "price": 20, "increase": 0, "count": 1, "function": "moat"}
 ]

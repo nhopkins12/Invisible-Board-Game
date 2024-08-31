@@ -132,7 +132,7 @@ function trap(index, socket) { //good
     npcs = JSON.parse(fs.readFileSync('./data/npc.json'))
     players = JSON.parse(fs.readFileSync('./data/players.json'))
 
-    npcs.push({"name":"Trap", "id":npcs.length,"location":players[index].location,"icon":"https://cdn.britannica.com/51/132851-050-D6CA13B6/Bernie-Sanders-2007.jpg", "owner": players[index].name, "function":"trap"})
+    npcs.push({"name":"Trap", "id":npcs.length,"location":players[index].location,"icon":"https://cdn4.vectorstock.com/i/1000x1000/68/88/comic-cartoon-bear-trap-vector-6996888.jpg", "owner": players[index].name, "function":"trap"})
     
     fs.writeFileSync('./data/npc.json', JSON.stringify(npcs), (error) => {
         if (error) {

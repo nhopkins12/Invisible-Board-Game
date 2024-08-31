@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs')
 const app = express();
+const ss = require('socket.io-stream');
 app.use(express.json());
 app.use(express.static('public'));
 
@@ -57,12 +58,13 @@ objectives.forEach(obj => {
     eval("objectivefunctions."+ obj.function + "setup()")
 });
 
-app.get('/show', function(req, res){
-    res.sendFile(path.join(__dirname+'/index.html'));
+app.get('/picture', function(req, res){
+    io.emit('photo')
+    res.sendStatus(200)
 });
 
-app.get('/hasti', function(req, res){
-    res.sendFile(path.join(__dirname+'/hasti.html'));
+app.get('/show', function(req, res){
+    res.sendFile(path.join(__dirname+'/index.html'));
 });
 
 app.get('/reset', function(req, res){
@@ -117,6 +119,8 @@ const server = http.createServer(app);
 
 const io = require('socket.io')(server);
 
+io.emit("update");
+
 const connections = [];
 const playerconnections = [];
 
@@ -134,7 +138,8 @@ io.sockets.on('connection',(socket) => {
         else {
             players = []
         }
-        players.push(new Player(arg, arg2, socket.id))
+        console.log(spots.spots.filter((x) => x.type == 'Start'))
+        players.push(new Player(arg, arg2, socket.id, spots.spots.filter((x) => x.type == 'Start')[0].id))
         fs.writeFileSync('./data/players.json', JSON.stringify(players), (error) => {
             if (error) {
                 console.error(error);
@@ -184,7 +189,6 @@ io.sockets.on('connection',(socket) => {
                 throw error;
         }});
         io.emit("updatePlayers")
-        // io.emit("update")
 
         var players = JSON.parse(fs.readFileSync('./data/players.json'));
         player = players[turn % players.length]
@@ -195,7 +199,7 @@ io.sockets.on('connection',(socket) => {
                 eval('npcactions.'+element.function+'(turn % players.length, socket, i)')
             }
         });
-
+        io.emit("updatePlayers")
         spots.spots[players[turn % players.length].location-1].action(players[turn % players.length], turn % players.length, socket)
     });
 
@@ -275,6 +279,34 @@ io.sockets.on('connection',(socket) => {
         action()
     });
 
+    // socket.on('image', (file) => {
+    //     console.log(file)
+    //     fs.writeFileSync("./tmp/upload.jpeg", file, (err) => {
+    //         // callback({ message: err ? "failure" : "success" });
+    //     });
+    // });
+
+    ss(socket).on('file-upload', (stream, data) => {
+        const filePath = path.join(__dirname, 'public', data.fileName);
+    
+        // Create a write stream to save the file
+        const writeStream = fs.createWriteStream(filePath);
+    
+        // Pipe the incoming stream to the write stream
+        stream.pipe(writeStream);
+    
+        // When the file is fully written, send a success message to the client
+        writeStream.on('finish', () => {
+            console.log(`File saved: ${data.fileName}`);
+            socket.emit('upload-success', `File ${data.fileName} uploaded successfully!`);
+        });
+    
+        // Handle any errors during the write process
+        writeStream.on('error', (err) => {
+            console.error('Error saving file:', err);
+            socket.emit('upload-failure', 'Failed to save file.');
+        });
+    })
 });
 
 function action(){
@@ -298,7 +330,7 @@ app.get('/update', function (req,res){
     res.sendStatus(200)
 });
 
-// , '10.0.0.148'
+// , '10.0.0.148''159.89.120.211'
 server.listen(port, '159.89.120.211');
 console.debug('Server listening on port 159.89.120.211:' + port);
 
@@ -313,7 +345,6 @@ async function move(options, choice, socket){
             throw error;
     }});
     io.emit("updatePlayers")
-    // io.emit("update")
 
     var players = JSON.parse(fs.readFileSync('./data/players.json'));
     player = players[turn % players.length]
@@ -351,8 +382,6 @@ function turnstart(socket){
 }
 
 function advance(){
-    io.emit("updatePlayers")
-    io.emit("update")
     checkobjectives()
     var players = JSON.parse(fs.readFileSync('./data/players.json'));
     player = players[turn % players.length]
@@ -386,7 +415,6 @@ function advance(){
     
     // await sleep(3000)
     
-    io.emit('update')
     if(gamestart){
         turnstart(playerconnections[turn % players.length])
     }

@@ -132,9 +132,9 @@ class Special extends Spot{
 }
 
 class Player {
-    constructor(name, url, id){
+    constructor(name, url, id, start){
         this.name = name;
-        this.location = 1;
+        this.location = start;
         this.icon = url;
         this.coins = 0;
         this.spent = 0;
