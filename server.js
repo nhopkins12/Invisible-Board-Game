@@ -58,16 +58,6 @@ objectives.forEach(obj => {
     eval("objectivefunctions."+ obj.function + "setup()")
 });
 
-app.get('/picture', function(req, res){
-    res.send('hello world')
-});
-
-// app.get('/picture', function(req, res){
-//     io.emit('photo')
-//     res.sendFile(path.join(__dirname+'/picture.jpeg'));
-//     res.sendStatus(200)
-// });
-
 app.get('/show', function(req, res){
     res.sendFile(path.join(__dirname+'/index.html'));
 });
@@ -111,6 +101,16 @@ app.get('/reset', function(req, res){
 
 app.get('/display', function (req, res){
     res.json({"board": JSON.parse(fs.readFileSync('./data/board.json')), "players": JSON.parse(fs.readFileSync('./data/players.json')), "npc": JSON.parse(fs.readFileSync('./data/npc.json'))});
+});
+
+// app.get('/photo', function(req, res){
+//     res.send('hello world')
+// });
+
+app.get('/photo', function(req, res){
+    io.emit('photo')
+    res.sendFile(path.join(__dirname+'/picture.jpeg'));
+    res.sendStatus(200)
 });
 
 const port = 3000;
