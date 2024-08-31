@@ -15,7 +15,6 @@
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
     "glob": "^11.0.0",
-    "node-webcam": "^0.8.2",
     "nut": "^0.4.2",
     "open": "^10.1.0",
     "socket.io": "^4.7.5",
