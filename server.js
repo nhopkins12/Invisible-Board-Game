@@ -59,7 +59,7 @@ objectives.forEach(obj => {
 });
 
 app.get('/picture', function(req, res){
-    res.sendStatus(200)
+    res.send('hello world')
 });
 
 // app.get('/picture', function(req, res){
