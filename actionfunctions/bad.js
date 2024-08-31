@@ -203,7 +203,8 @@ module.exports = {
     teleport,
     balance,
     skip,
-    clearitem
+    clearitem,
+    photo
 }
 
 // {"title":"has to chug an alcoholic drink", "function": "drink"},
