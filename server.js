@@ -107,10 +107,9 @@ app.get('/display', function (req, res){
 //     res.send('hello world')
 // });
 
-app.get('/photo', function(req, res){
-    io.emit('photo')
-    res.redirect('../photo.jpeg');
-});
+// app.get('/photo', function(req, res){
+//     res.redirect('../photo.jpeg');
+// });
 
 app.get('/rotate/reset', function(req, res){
     io.emit('rotate', 0)
