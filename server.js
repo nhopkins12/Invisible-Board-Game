@@ -112,11 +112,7 @@ app.get('/photo', function(req, res){
     res.redirect('../photo.jpeg');
 });
 
-app.get('/rotate', function(req, res){
-    io.emit('rotate', 90)
-});
-
-app.get('/rotate2', function(req, res){
+app.get('/rotate/reset', function(req, res){
     io.emit('rotate', 0)
 });
 

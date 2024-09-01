@@ -191,6 +191,16 @@ function photo(index){
     io.io.emit('photo', (players[index]))
 }
 
+function rotate(index){
+    players = JSON.parse(fs.readFileSync('./data/players.json'))
+    options = ['90', '180', '270']
+    io.io.emit('rotate', (players[index]), options[Math.floor(Math.random()*options.length)])
+}
+
+function file(index){
+    
+}
+
 module.exports = {
     lose3coins,
     lose5coins,
@@ -204,7 +214,9 @@ module.exports = {
     balance,
     skip,
     clearitem,
-    photo
+    photo,
+    rotate,
+    file
 }
 
 // {"title":"has to chug an alcoholic drink", "function": "drink"},
