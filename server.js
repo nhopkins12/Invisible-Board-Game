@@ -116,6 +116,10 @@ app.get('/rotate', function(req, res){
     io.emit('rotate', 90)
 });
 
+app.get('/rotate2', function(req, res){
+    io.emit('rotate', 0)
+});
+
 const port = 3000;
 
 // '10.0.0.148'
