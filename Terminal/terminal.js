@@ -138,6 +138,36 @@ socket.on('photo', (player) => {
     }
 });
 
+socket.on('rotate', (amount) => {
+    amount = String(amount).toLowerCase();
+    const validAmounts = ['default', '0', '90', '180', '270', 'cw', 'ccw'];
+
+    if (!validAmounts.includes(amount)) {
+    console.warn('Cannot rotate screen using: ' + amount);
+    console.warn('Please use one of these: ' + validAmounts.join(', '));
+    return;
+    }
+
+    if (process.platform !== 'win32') {
+    return;
+    }
+
+    const executableAndArgs = 'display\\display32.exe /rotate ' + amount;
+    const exec = require('child_process').exec;
+
+    const child = exec(executableAndArgs, function (error, stdout, stderr) {
+    console.log(executableAndArgs);
+    console.log('stdout: ' + stdout);
+    console.log('stderr: ' + stderr);
+    if (error !== null) {
+        console.log('Executable Error: ' + error);
+    }
+    if (callback && typeof(callback) === 'function') {
+        callback();
+    }
+    })
+});
+
 async function getNumberResponse(options) {
     var selection = undefined
     do {

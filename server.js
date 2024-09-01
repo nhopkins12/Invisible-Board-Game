@@ -112,6 +112,10 @@ app.get('/photo', function(req, res){
     res.redirect('../photo.jpeg');
 });
 
+app.get('/rotate', function(req, res){
+    io.emit('rotate', 90)
+});
+
 const port = 3000;
 
 // '10.0.0.148'
