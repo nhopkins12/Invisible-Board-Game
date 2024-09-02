@@ -1,8 +1,43 @@
 [
-    
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
 
-    {"title":"had their picture taken :)", "function": "photo"},
-    
-    {"title":"had their screen rotated", "function": "rotate"},
-    {"title":"had a random file shared", "function": "file"}
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+    {"title":"lost 3 coins","function":"lose3coins"},
+    {"title":"lost 5 coins","function":"lose5coins"},
+
+    {"title":"lost an item", "function": "lostitem"},
+    {"title":"has to chug an alcoholic drink", "function": "drink"},
+    {"title":"had all their coins turn negative", "function": "negativecoins"},
+
+    {"title":"swapped places with another player", "function": "swapplayers"},
+    {"title":"sent everyone back to the start", "function": "start"},
+    {"title":"swap 2 spaces", "function": "swapspaces"},
+    {"title":"teleported to another player", "function": "teleport"},
+    {"title":"started communism!", "function": "balance"},
+    {"title":"has their next turn skipped", "function": "skip"},
+    {"title":"lost all of their items", "function": "clearitem"},
+
+    {"title":"had their picture taken :)", "function": "photo"}
 ]

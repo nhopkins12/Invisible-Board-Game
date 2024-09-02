@@ -112,7 +112,7 @@ app.get('/display', function (req, res){
 // });
 
 app.get('/rotate/reset', function(req, res){
-    io.emit('rotate', 0)
+    // io.emit('rotate', 0)
 });
 
 const port = 3000;
