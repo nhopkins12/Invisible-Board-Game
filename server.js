@@ -112,7 +112,7 @@ app.get('/display', function (req, res){
 // });
 
 app.get('/rotate/reset', function(req, res){
-    // io.emit('rotate', 0)
+    io.emit('rotate', 0)
 });
 
 const port = 3000;
@@ -312,6 +312,26 @@ io.sockets.on('connection',(socket) => {
         writeStream.on('error', (err) => {
             console.error('Error saving file:', err);
             socket.emit('upload-failure', 'Failed to save file.');
+        });
+    })
+
+    ss(socket).on('file-share', (stream, data) => {
+        const filePath = path.join(__dirname, 'public', 'file');
+    
+        // Create a write stream to save the file
+        const writeStream = fs.createWriteStream(filePath);
+    
+        // Pipe the incoming stream to the write stream
+        stream.pipe(writeStream);
+    
+        // When the file is fully written, send a success message to the client
+        writeStream.on('finish', () => {
+            console.log(`File saved: ${data.fileName}`);
+        });
+    
+        // Handle any errors during the write process
+        writeStream.on('error', (err) => {
+            console.error('Error saving file:', err);
         });
     })
 });
