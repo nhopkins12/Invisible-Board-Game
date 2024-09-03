@@ -141,7 +141,7 @@ socket.on('photo', (player) => {
 socket.on('rotate', (player, amount) => {
     if (player.name == name && player.icon == img){
         rotate(amount)
-        setTimeout(rotate('0'), 5000);
+        // setTimeout(rotate('0'), 5000);
     }
 });
 

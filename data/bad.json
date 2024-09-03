@@ -2,30 +2,6 @@
     {"title":"lost 3 coins","function":"lose3coins"},
     {"title":"lost 5 coins","function":"lose5coins"},
 
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
-    {"title":"lost 3 coins","function":"lose3coins"},
-    {"title":"lost 5 coins","function":"lose5coins"},
 
     {"title":"lost an item", "function": "lostitem"},
     {"title":"has to chug an alcoholic drink", "function": "drink"},
@@ -39,5 +15,7 @@
     {"title":"has their next turn skipped", "function": "skip"},
     {"title":"lost all of their items", "function": "clearitem"},
 
-    {"title":"had their picture taken :)", "function": "photo"}
+    {"title":"had their picture taken :)", "function": "photo"},
+    {"title":"had their screen rotated", "function": "rotate"},
+    {"title":"had a random file shared", "function": "file"}
 ]
