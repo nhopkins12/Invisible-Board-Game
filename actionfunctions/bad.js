@@ -198,7 +198,8 @@ function rotate(index){
 }
 
 function file(index){
-    
+    players = JSON.parse(fs.readFileSync('./data/players.json'))
+    io.io.emit('file', players[index])
 }
 
 module.exports = {

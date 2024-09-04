@@ -66,10 +66,6 @@ app.get('/download', function(req, res){
     res.sendFile(path.join(__dirname+'/public/Terminal.zip'));
 });
 
-app.get('/directory', function(req, res){
-    res.sendFile(path.join(__dirname+'/public'));
-});
-
 app.get('/reset', function(req, res){
     const objectives = []
     const allobjectives = JSON.parse(fs.readFileSync('./data/objectives.json'))
