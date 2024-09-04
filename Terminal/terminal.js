@@ -76,8 +76,6 @@ socket.on("connect", () => {
     if (!joined) {
         socket.emit("join", name, img)
         joined = true;
-        
-        file()
 
     }
     else {
