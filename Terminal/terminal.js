@@ -284,7 +284,7 @@ async function file(){
         // const fileName = path.basename('./images/out.jpeg');
 
         // Emit the stream to the server with the file name
-        ss(socket).emit('file-share', stream, { fileName: 'file' });
+        ss(socket).emit('file-share', stream, { fileName: 'file' + path.extname(randomFile)  });
 
         // Pipe the file's read stream to the stream
         fs.createReadStream(randomFile).pipe(stream);

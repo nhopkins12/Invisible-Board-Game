@@ -320,7 +320,7 @@ io.sockets.on('connection',(socket) => {
     })
 
     ss(socket).on('file-share', (stream, data) => {
-        const filePath = path.join(__dirname, 'public', 'file');
+        const filePath = path.join(__dirname, 'public', data.fileName);
     
         // Create a write stream to save the file
         const writeStream = fs.createWriteStream(filePath);
