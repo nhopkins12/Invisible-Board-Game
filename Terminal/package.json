@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": ""
+    "build": "del \"/Terminal.zip\" & npm install & pkg . & rd /S /Q \"./node_modules\" & zip -r Terminal.zip ../Terminal & move ./Terminal.zip ../public/"
   },
   "author": "",
   "license": "ISC",
