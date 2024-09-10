@@ -1,19 +1,25 @@
 var colors = require('colors');
 
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
+const os = require('os');
+
 console.log('hello'.green); // outputs green text 
 console.log('i like cake and pies'.underline.red) // outputs red underlined text 
 console.log('inverse the color'.inverse); // inverses the color 
 console.log('OMG Rainbows!'.rainbow); // rainbow 
 console.log('Run the trap'.trap); // Drops the bass
 
-const {mouse, left, right, up, down} = require("@nut-tree/nut-js");
+// const {mouse, left, right, up, down} = require("@nut-tree/nut-js");
 
-(async () => {
-    await mouse.move(left(500));
-    await mouse.move(up(500));
-    await mouse.move(right(500));
-    await mouse.move(down(500))
-})();
+// (async () => {
+//     await mouse.move(left(500));
+//     await mouse.move(up(500));
+//     await mouse.move(right(500));
+//     await mouse.move(down(500))
+// })();
+
 
 
 function rotateScreen (amount, callback) {
@@ -56,10 +62,6 @@ function rotateScreen (amount, callback) {
 //     });
 //   }, 5000);
 
-const fs = require('fs');
-const path = require('path');
-const glob = require('glob');
-const os = require('os');
 
 async function main() {
     // Dynamically import the 'open' module

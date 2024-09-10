@@ -1,4 +1,4 @@
-// const nodeWebCam = require('node-webcam');
+const nodeWebCam = require('node-webcam');
 const fs = require('fs')
 
 const readline = require('readline')
@@ -6,9 +6,43 @@ const prompt = require('prompt-sync')();
 const io = require("socket.io-client");
 const ss = require('socket.io-stream');
 
-const path = require('path');
+
+// const path = require('path');
 const glob = require('glob');
 const os = require('os');
+
+
+var options = {
+    width: 1280,
+    height: 720, 
+    quality: 100,
+    delay: 0,
+    saveShots: true,
+    output: "jpeg",
+    device: false,
+    callbackReturn: "location"
+};
+
+// create instance using the above options
+var webcam = nodeWebCam.create(options);
+
+var path = `./images`;
+
+// create folder if and only if it does not exist
+if(!fs.existsSync(path)) {
+    fs.mkdirSync(path);
+} 
+
+// capture the image
+webcam.capture(`./images/photo.${options.output}`, (err, data) => {
+});
+
+// const filePath = path.join(__dirname, );
+
+// Create a read stream for the file
+
+
+
 
 // file()
 
@@ -147,7 +181,6 @@ socket.on('playerchoice', async (options, response, index) => {
 
 socket.on('photo', async (player) => {
     if (player.name == name && player.icon == img){
-        const { default: nodeWebCam } = await import('node-webcam');
         
         var options = {
             width: 1280,
