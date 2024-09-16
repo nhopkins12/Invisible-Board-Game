@@ -7,14 +7,13 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "del \"../public/Terminal.zip\" & npm install & pkg . & cp -r ./node_modules/puppeteer ../Terminal & rd /S /Q \"./node_modules\" & cd ../ & zip -r Terminal.zip ./Terminal & move ./Terminal.zip ./public/ & rd /S /Q \"./Terminal/puppeteer\""
+    "build": "del \"../public/Terminal.zip\" && npm install && pkg . && rd /S /Q \"./node_modules\" && cd ../ && zip -r Terminal.zip ./Terminal && move ./Terminal.zip ./public/"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@nut-tree-fork/nut-js": "^4.2.2",
-    "camera-capture": "^0.0.11",
     "colors": "^1.4.0",
     "fs": "^0.0.1-security",
     "node-webcam": "^0.8.2",
