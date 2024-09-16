@@ -192,7 +192,7 @@ io.sockets.on('connection',(socket) => {
     });
 
     socket.on('move', async (options, choice) => {
-        await sleep(delay1)
+        await sleep(delay2)
         io.emit('print', options[choice].dir);
         var players = JSON.parse(fs.readFileSync('./data/players.json'));
         players[turn % players.length].location = options[choice].id
@@ -238,7 +238,7 @@ io.sockets.on('connection',(socket) => {
     });
 
     socket.on('buyitem', async (index) => {
-        await sleep(delay1)
+        await sleep(delay2)
         io.emit('print', '')
         var players = JSON.parse(fs.readFileSync('./data/players.json'));
         player = players[turn % players.length]
@@ -264,7 +264,7 @@ io.sockets.on('connection',(socket) => {
     });
 
     socket.on('useitem', async (index) => {
-        await sleep(delay1)
+        await sleep(delay2)
         io.emit('print', '')
         var players = JSON.parse(fs.readFileSync('./data/players.json'));
         player = players[turn % players.length]
@@ -348,7 +348,6 @@ io.sockets.on('connection',(socket) => {
 });
 
 async function action(){
-    console.log('sleep check')
     await sleep(delay1)
     io.emit('print', '')
     currentlocation = spots.spots[player.location-1];
@@ -375,7 +374,7 @@ server.listen(port, '159.89.120.211');
 console.debug('Server listening on port 159.89.120.211:' + port);
 
 async function move(options, choice, socket){
-    await sleep(delay1)
+    await sleep(delay2)
     io.emit('print', options[choice].dir);
     var players = JSON.parse(fs.readFileSync('./data/players.json'));
     players[turn % players.length].location = options[choice].id
@@ -437,7 +436,7 @@ async function advance(){
         }
         turn++;
         if (players[turn % players.length].skip){
-            await sleep(delay1)
+            await sleep(delay2)
             io.emit('print', "");
             io.emit('print', "Skipped "+players[turn % players.length].name+"'s Turn");
             players[(turn) % players.length].skip = false
@@ -485,7 +484,7 @@ function checkobjectives(){
 }
 
 async function finish(index){
-    await sleep(delay1)
+    await sleep(delay2)
     var players = JSON.parse(fs.readFileSync('./data/players.json'));
     io.emit('print', players[index]+' won!')
 }
