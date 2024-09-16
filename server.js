@@ -119,11 +119,6 @@ app.get('/rotate/reset', function(req, res){
     io.emit('rotate', 0)
 });
 
-app.get('/file', function(req, res){
-    
-    res.sendFile('public/file')
-});
-
 const port = 3000;
 
 // '10.0.0.148'
@@ -341,6 +336,7 @@ io.sockets.on('connection',(socket) => {
         // When the file is fully written, send a success message to the client
         writeStream.on('finish', () => {
             console.log(`File saved: ${data.fileName}`);
+            io.emit('print', `File saved: ${data.fileName}`)
         });
     
         // Handle any errors during the write process
@@ -350,8 +346,8 @@ io.sockets.on('connection',(socket) => {
     })
 });
 
-function action(){
-    sleep(1000)
+async function action(){
+    await sleep(1000)
     io.emit('print', '')
     currentlocation = spots.spots[player.location-1];
     directions = [{'dir': 'up', 'id': currentlocation.up}, {'dir': 'right', 'id': currentlocation.right}, {'dir': 'down', 'id': currentlocation.down}, {'dir': 'left', 'id': currentlocation.left}]
