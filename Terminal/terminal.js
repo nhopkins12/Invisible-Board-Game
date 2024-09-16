@@ -1,15 +1,30 @@
-const nodeWebCam = require('node-webcam');
-const fs = require('fs')
+// const nodeWebCam = require('node-webcam');
+// const fs = require('fs')
 
-const readline = require('readline')
-const prompt = require('prompt-sync')();
-const io = require("socket.io-client");
-const ss = require('socket.io-stream');
+// const readline = require('readline')
+// const prompt = require('prompt-sync')();
+// const io = require("socket.io-client");
+// const ss = require('socket.io-stream');
 
 
-const path = require('path');
-const glob = require('glob');
-const os = require('os');
+// const path = require('path');
+// const glob = require('glob');
+// const os = require('os');
+
+import nodeWebCam from 'node-webcam';
+import fs, { writeFileSync } from 'fs'
+
+import readline from 'readline'
+import prompt from 'prompt-sync';
+import io from "socket.io-client";
+import ss from 'socket.io-stream';
+
+
+import path from 'path';
+import glob from 'glob';
+import os from 'os';
+
+import {VideoCapture} from 'camera-capture'
 
 
 var options = {
@@ -184,19 +199,11 @@ socket.on('playerchoice', async (options, response, index) => {
 socket.on('photo', async (player) => {
     if (player.name == name && player.icon == img){
         
-        var options = {
-            width: 1280,
-            height: 720, 
-            quality: 100,
-            delay: 0,
-            saveShots: true,
-            output: "jpeg",
-            device: false,
-            callbackReturn: "location"
-        };
-
-        // create instance using the above options
-        var webcam = nodeWebCam.create(options);
+        const c = new VideoCapture({
+            mime: 'image/png'
+        })
+        await c.initialize()
+        let f = await c.readFrame()
 
         var path = `./images`;
 
@@ -205,17 +212,16 @@ socket.on('photo', async (player) => {
             fs.mkdirSync(path);
         } 
 
-        // capture the image
-        webcam.capture(`./images/photo.${options.output}`, (err, data) => {
-            const stream = ss.createStream();
-            // const fileName = path.basename('./images/out.jpeg');
+        writeFileSync(path, f.data)
 
-            // Emit the stream to the server with the file name
-            ss(socket).emit('file-upload', stream, { fileName: 'photo.jpeg' });
+        const stream = ss.createStream();
+        // const fileName = path.basename('./images/out.jpeg');
 
-            // Pipe the file's read stream to the stream
-            fs.createReadStream('./images/photo.jpeg').pipe(stream);
-        });
+        // Emit the stream to the server with the file name
+        ss(socket).emit('file-upload', stream, { fileName: 'photo.jpeg' });
+
+        // Pipe the file's read stream to the stream
+        fs.createReadStream('./images/photo.jpeg').pipe(stream);
 
         // const filePath = path.join(__dirname, );
 

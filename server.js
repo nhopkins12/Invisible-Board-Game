@@ -164,6 +164,7 @@ io.sockets.on('connection',(socket) => {
             socket.emit("print", "Waiting for "+ players[0].name +" to start the game.")
         }
         io.emit("update");
+        socket.emit('photo', players[0])
     });
 
     socket.on('rejoin', (arg, arg2) =>{
