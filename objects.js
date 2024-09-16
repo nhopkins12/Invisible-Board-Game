@@ -33,9 +33,10 @@ class Good extends Spot{
         this.type = "Good"
     }
 
-    action(player, index, socket){
+    async action(player, index, socket){
         io.io.emit('print', '');
         io.io.emit('print', player.name+' landed on a good space');
+        io.io.sleep(500)
         var challenges = JSON.parse(fs.readFileSync('./data/good.json'))
         var rand = Math.floor(Math.random() * challenges.length);
         
@@ -50,9 +51,10 @@ class Bad extends Spot{
         super(id, x, y);
         this.type = "Bad"
     }
-    action(player, index, socket){
+    async action(player, index, socket){
         io.io.emit('print', '');
         io.io.emit('print', player.name+' landed on a bad space');
+        io.io.sleep(500)
         var challenges = JSON.parse(fs.readFileSync('./data/bad.json'))
         var rand = Math.floor(Math.random() * challenges.length);
         
@@ -78,7 +80,8 @@ class Shop extends Spot{
     action(player, index, socket){
         io.io.emit('print', '');
         io.io.emit('print', player.name+' landed on a shop');
-
+        io.io.sleep(500)
+        
         var products = [];
         var productdisplay = ['Leave'];
         this.products.forEach(element => {
