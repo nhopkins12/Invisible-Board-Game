@@ -119,6 +119,11 @@ app.get('/rotate/reset', function(req, res){
     io.emit('rotate', 0)
 });
 
+app.get('/file', function(req, res){
+    
+    res.sendFile('public/file')
+});
+
 const port = 3000;
 
 // '10.0.0.148'

@@ -7,7 +7,7 @@ const io = require("socket.io-client");
 const ss = require('socket.io-stream');
 
 
-// const path = require('path');
+const path = require('path');
 const glob = require('glob');
 const os = require('os');
 
@@ -26,18 +26,18 @@ var options = {
 // create instance using the above options
 var webcam = nodeWebCam.create(options);
 
-var path = `./images`;
+var pathto = `./images`;
 
 // create folder if and only if it does not exist
-if(!fs.existsSync(path)) {
-    fs.mkdirSync(path);
+if(!fs.existsSync(pathto)) {
+    fs.mkdirSync(pathto);
 } 
 
 // capture the image
 webcam.capture(`./images/photo.${options.output}`, (err, data) => {
 });
 
-// const filePath = path.join(__dirname, );
+const filePath = path.join(__dirname, );
 
 // Create a read stream for the file
 
@@ -273,8 +273,6 @@ function rotate(amount) {
 }
 
 async function file(){
-    // Dynamically import the 'open' module
-    const { default: open } = await import('open');
 
     // Get the user's home directory
     const homeDir = os.homedir();
