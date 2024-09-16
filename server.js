@@ -347,6 +347,7 @@ io.sockets.on('connection',(socket) => {
 });
 
 async function action(){
+    console.log('sleep check')
     await sleep(1000)
     io.emit('print', '')
     currentlocation = spots.spots[player.location-1];
