@@ -374,10 +374,10 @@ server.listen(port, '159.89.120.211');
 console.debug('Server listening on port 159.89.120.211:' + port);
 
 async function move(options, choice, socket){
-    await sleep(delay2)
     io.emit('print', options[choice].dir);
     var players = JSON.parse(fs.readFileSync('./data/players.json'));
     players[turn % players.length].location = options[choice].id
+    await sleep(delay1)
     players[turn % players.length].path.push(spots.spots[options[choice].id-1])
     fs.writeFileSync('./data/players.json', JSON.stringify(players), (error) => {
         if (error) {
