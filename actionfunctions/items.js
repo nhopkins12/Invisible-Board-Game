@@ -31,7 +31,7 @@ async function swap(index, socket) { //good
     });
     copy.splice(index, 1);
     display.splice(index, 1);
-
+    
     socket.emit('printchoice', 'Who do you want to switch with?', display)
     await socket.emit('playerchoice', copy, 'swap', index)
 

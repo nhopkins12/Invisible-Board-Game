@@ -182,6 +182,7 @@ io.sockets.on('connection',(socket) => {
     });
 
     socket.on('playerturn', () => {
+        sleep(1000)
         io.emit("print", "")
         gamestart = true;
         var displayobjectives = [objectives[0].title, objectives[1].title, '???']
@@ -190,6 +191,7 @@ io.sockets.on('connection',(socket) => {
     });
 
     socket.on('move', (options, choice) => {
+        sleep(1000)
         io.emit('print', options[choice].dir);
         var players = JSON.parse(fs.readFileSync('./data/players.json'));
         players[turn % players.length].location = options[choice].id
@@ -219,6 +221,7 @@ io.sockets.on('connection',(socket) => {
     });
 
     socket.on('items', () => {
+        sleep(1000)
         io.emit('print', '')
         var players = JSON.parse(fs.readFileSync('./data/players.json'));
         player = players[turn % players.length]
@@ -234,6 +237,7 @@ io.sockets.on('connection',(socket) => {
     });
 
     socket.on('buyitem', (index) => {
+        sleep(1000)
         io.emit('print', '')
         var players = JSON.parse(fs.readFileSync('./data/players.json'));
         player = players[turn % players.length]
@@ -259,6 +263,7 @@ io.sockets.on('connection',(socket) => {
     });
 
     socket.on('useitem', (index) => {
+        sleep(1000)
         io.emit('print', '')
         var players = JSON.parse(fs.readFileSync('./data/players.json'));
         player = players[turn % players.length]
@@ -341,6 +346,7 @@ io.sockets.on('connection',(socket) => {
 });
 
 function action(){
+    sleep(1000)
     io.emit('print', '')
     currentlocation = spots.spots[player.location-1];
     directions = [{'dir': 'up', 'id': currentlocation.up}, {'dir': 'right', 'id': currentlocation.right}, {'dir': 'down', 'id': currentlocation.down}, {'dir': 'left', 'id': currentlocation.left}]
@@ -366,6 +372,7 @@ server.listen(port, '159.89.120.211');
 console.debug('Server listening on port 159.89.120.211:' + port);
 
 async function move(options, choice, socket){
+    sleep(1000)
     io.emit('print', options[choice].dir);
     var players = JSON.parse(fs.readFileSync('./data/players.json'));
     players[turn % players.length].location = options[choice].id
@@ -391,6 +398,7 @@ async function move(options, choice, socket){
 }
 
 function turnstart(socket){
+    sleep(1000)
     io.emit('print', '')
     var players = JSON.parse(fs.readFileSync('./data/players.json'));
     player = players[turn % players.length]
@@ -408,6 +416,7 @@ function turnstart(socket){
     directions.unshift('Items');
     directionsDisplay.unshift('Items');
     
+    sleep(1000)
     io.emit('printchoice', 'Pick an action: ', directionsDisplay)
     playersocket.emit('choice', directions);
 }
@@ -425,6 +434,7 @@ function advance(){
         }
         turn++;
         if (players[turn % players.length].skip){
+            sleep(1000)
             io.emit('print', "");
             io.emit('print', "Skipped "+players[turn % players.length].name+"'s Turn");
             players[(turn) % players.length].skip = false
@@ -472,6 +482,7 @@ function checkobjectives(){
 }
 
 function finish(index){
+    sleep(1000)
     var players = JSON.parse(fs.readFileSync('./data/players.json'));
     io.emit('print', players[index]+' won!')
 }
