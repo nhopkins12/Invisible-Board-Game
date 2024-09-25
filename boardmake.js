@@ -515,8 +515,8 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
                 
                 if (node[direction] !== edge.id) {
                     console.error(`Error: Node ${node.id} should have a ${direction} connection to ${edge.id}.`);
-                    console.log(edge)
-                    console.log(oppositeDirection)
+                    // console.log(edge)
+                    // console.log(oppositeDirection)
                     // edge[oppositeDirection] = null
                     
                 }
