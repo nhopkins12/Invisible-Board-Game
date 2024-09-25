@@ -497,7 +497,7 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             hasChanges = ensureConnections();
             iterations++;
         } while (hasChanges && iterations < maxIterations);
-    
+        console.log("done it lesgo")
         // Final verification: Ensure no node is missing necessary connections
         spots.forEach(node => {
             node.dir.forEach(edge => {
@@ -517,7 +517,6 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
                 const edgeNode = spots.find(n => n.id === edge.id);
                 if (edgeNode[oppositeDirection] !== node.id) {
                     console.error(`Error: Node ${edge.id} should have a ${oppositeDirection} connection to ${node.id}.`);
-                    console.log(edge)
                     node[direction] == null
                 }
             });
