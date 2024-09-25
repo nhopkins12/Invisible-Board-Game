@@ -281,6 +281,7 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             spot.connections = 0
         });
         assignDirections(board)
+        assignDirections(board)
         
 
         // adjustPositions(board, 550, 550)
@@ -497,7 +498,6 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             hasChanges = ensureConnections();
             iterations++;
         } while (hasChanges && iterations < maxIterations);
-        console.log("done it lesgo")
         // Final verification: Ensure no node is missing necessary connections
         spots.forEach(node => {
             node.dir.forEach(edge => {
