@@ -281,6 +281,7 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             spot.connections = 0
         });
         assignDirections(board)
+        console.log('yessir')
         assignDirections(board)
         
 
