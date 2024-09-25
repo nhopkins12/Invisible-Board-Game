@@ -490,7 +490,7 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
         }
     
         // Ensure all nodes are connected as per the dir array requirements
-        const maxIterations = 10;
+        const maxIterations = 50;
         let iterations = 0;
         let hasChanges;
         do {
@@ -511,10 +511,12 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
                 
                 if (node[direction] !== edge.id) {
                     console.error(`Error: Node ${node.id} should have a ${direction} connection to ${edge.id}.`);
+                    console.error(`${node}`)
                 }
                 const edgeNode = spots.find(n => n.id === edge.id);
                 if (edgeNode[oppositeDirection] !== node.id) {
                     console.error(`Error: Node ${edge.id} should have a ${oppositeDirection} connection to ${node.id}.`);
+                    console.error(`${node}`)
                 }
             });
         });
