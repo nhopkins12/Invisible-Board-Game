@@ -497,6 +497,7 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
         let hasChanges;
         do {
             hasChanges = ensureConnections();
+            console.log(hasChanges)
             iterations++;
         } while (hasChanges && iterations < maxIterations);
         if (hasChanges){
