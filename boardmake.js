@@ -514,11 +514,17 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
                 
                 if (node[direction] !== edge.id) {
                     console.error(`Error: Node ${node.id} should have a ${direction} connection to ${edge.id}.`);
+                    edge[oppositeDirection] = null
+                    console.log(node)
+                    console.log(edge)
+
+                    // [{ direction: 'up', spot: board[node.up-1]}, { direction: 'right', spot: board[spot.right-1]}, { direction: 'down', spot: board[spot.down-1]}, { direction: 'left', spot: board[.left-1]}]
                     // reset()
                 }
                 const edgeNode = spots.find(n => n.id === edge.id);
                 if (edgeNode[oppositeDirection] !== node.id) {
                     console.error(`Error: Node ${edge.id} should have a ${oppositeDirection} connection to ${node.id}.`);
+                    node[direction] = null
                     // reset()
                 }
             });
