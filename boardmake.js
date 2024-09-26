@@ -281,8 +281,6 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
             spot.connections = 0
         });
         assignDirections(board)
-        console.log('yessir')
-        assignDirections(board)
         
 
         // adjustPositions(board, 550, 550)
@@ -496,8 +494,8 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
         let iterations = 0;
         let hasChanges;
         do {
-            hasChanges = ensureConnections();
-            console.log(hasChanges)
+            // hasChanges = ensureConnections();
+            // console.log(hasChanges)
             iterations++;
         } while (hasChanges && iterations < maxIterations);
         if (hasChanges){
@@ -516,15 +514,12 @@ var {Spot, Good, Bad, Shop, Teleport, Start, Player} = require("./objects")
                 
                 if (node[direction] !== edge.id) {
                     console.error(`Error: Node ${node.id} should have a ${direction} connection to ${edge.id}.`);
-                    // console.log(edge)
-                    // console.log(oppositeDirection)
-                    // edge[oppositeDirection] = null
-                    
+                    reset()
                 }
                 const edgeNode = spots.find(n => n.id === edge.id);
                 if (edgeNode[oppositeDirection] !== node.id) {
                     console.error(`Error: Node ${edge.id} should have a ${oppositeDirection} connection to ${node.id}.`);
-                    // node[direction] = null
+                    reset()
                 }
             });
         });
